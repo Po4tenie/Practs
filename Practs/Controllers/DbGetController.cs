@@ -18,25 +18,27 @@ namespace Practs.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DbGetController : ControllerBase
+    public class DbGetController : ControllerBase //Класс контроллера, отвечающий за вывод данных.
     {
         private readonly DataBaseContext _context;
 
         public DbGetController(DataBaseContext context)
         {
+            //получение переменной DataBaseContext
             _context = context;
         }
 
         // получение процедур с возможностью ограничения выборки
+        // api/DbGet/ZTINMM_TK_H/GetAllProcedures
         [HttpGet("ZTINMM_TK_H/GetAllProcedures")]
 
         public IActionResult GetAllProcedures(int Restriction) {
-            var temp = _context.ZTINMM_TK_H.ToList();
+            var temp = _context.ZTINMM_TK_H.ToList(); //создание списка из класса элементов таблицы.
 
-            var results = new List<ZTINMM_TK_H_DTO>();
+            var results = new List<ZTINMM_TK_H_DTO>(); //создание списка из класса ZTINMM_TK_H_DTO
             foreach (var item in temp)
             {
-                results.Add(new ZTINMM_TK_H_DTO()
+                results.Add(new ZTINMM_TK_H_DTO() //добавление в список элементов из класса ZTINMM_TK_H_DTO, которым присваивается информация из класса элементов таблицы
                 {
                     KONKURS_ID = item.KONKURS_ID,
                     KONKURS_NR = item.KONKURS_NR,
@@ -50,21 +52,25 @@ namespace Practs.Controllers
                 });
 
             }
-            return Ok(results.Take(Restriction));
+            return Ok(results.Take(Restriction)); //вывод списка с ограничением выборки
 
 
         }
-        [HttpGet("ZTINMM_TK_H/GetProcedureById")] //Данные процедуры по KONKURS_ID 
+        // Данные процедуры по KONKURS_ID
+        // api/DbGet/ZTINMM_TK_H/GetProcedureById
+        [HttpGet("ZTINMM_TK_H/GetProcedureById")] 
         public IActionResult GetProcedureId(int id)
         {
-            var Res = _context.ZTINMM_TK_H.Find(id);
+            var Res = _context.ZTINMM_TK_H.Find(id); //поиск строки со значением ключевого элемента по заданному значению int id 
             if (Res == null) {
-                return NotFound();
+                return NotFound(); //проверка на нахождение. Если элемент не нашелся, вызывается ответ с 404 ошибкой
 
             }
-            return Ok(Res);
+            return Ok(Res); //вывод строки 
         }
-        [HttpGet("ZINMM_SOF_LOT_H/GetLotById")] // Данные лота по LOT_ID лота
+        // Данные лота по LOT_ID лота
+        // api/DbGet/ZINMM_SOF_LOT_H/GetLotById
+        [HttpGet("ZINMM_SOF_LOT_H/GetLotById")] 
         public IActionResult GetLotById(int id)
         {
 
@@ -76,10 +82,12 @@ namespace Practs.Controllers
             }
             return Ok(Res);
         }
-        [HttpGet("ZINMM_SOF_LOT_H/GetLotByProcId")] // Список всех лотов по KONKURS_ID процедуры
+        // Список всех лотов по KONKURS_ID процедуры
+        // api/DbGet/ZINMM_SOF_LOT_H/GetLotByProcId
+        [HttpGet("ZINMM_SOF_LOT_H/GetLotByProcId")]
         public IActionResult GetLotsByProcId(int id)
         {
-            var Res = _context.ZINMM_SOF_LOT_H.Where(x => x.KONKURS_ID == id.ToString());
+            var Res = _context.ZINMM_SOF_LOT_H.Where(x => x.KONKURS_ID == id.ToString()); // поиск строки с совпадением значения элемента таблицы с заданным значением
             if (Res == null)
             {
                 return NotFound();
@@ -87,8 +95,9 @@ namespace Practs.Controllers
             }
             return Ok(Res);
         }
-        
-        [HttpGet("ZTINMM_TK_OFR/GetOffersByLotId")] //  Список всех оферт по LOT_ID лота
+        // Список всех оферт по LOT_ID лота
+        // api/DbGet/ZTINMM_TK_OFR/GetOffersByLotId
+        [HttpGet("ZTINMM_TK_OFR/GetOffersByLotId")]
         
         public IActionResult GetOffersByLotId(int id)
         {
@@ -100,8 +109,9 @@ namespace Practs.Controllers
             }
             return Ok(Res);
         }
-
-        [HttpGet("ZINMM_TK_OFR/GetOffersByTABIX")] // Данные оферт  по TABIX оферты
+        // Данные оферт  по TABIX оферты
+        // api/DbGet/ZINMM_TK_OFR/GetOffersByTABIX
+        [HttpGet("ZINMM_TK_OFR/GetOffersByTABIX")] 
         public IActionResult GetOffersByTABIX(int tabix)
         {
             var ResultId = _context.ZTINMM_TK_OFR.Where(x=>x.TABIX == tabix);
@@ -112,23 +122,28 @@ namespace Practs.Controllers
             }
             return Ok(ResultId);
         }
-
+        // Вывод отчета
+        // api/DbGet/Report
         [HttpGet("Report")]
-
+        
         public IActionResult GetReport(int Restriction) {
-
+            //получение списка из элементов таблиц. Понадобится в будущем. 
             var temp1 = _context.ZTINMM_TK_H.ToList();
             var temp2 = _context.ZINMM_SOF_LOT_H.ToList();
             var temp3 = _context.ZTINMM_TK_OFR.ToList();
             var temp4 = _context.T001.ToList();
 
-            var list1 = new FirstPart();
-            list1.Date = DateTime.Now;
-            list1.ProcCount = temp1.Count;
+            //отчет состоит из двух частей
+            //заполним первую часть
+            var list1 = new FirstPart(); //конструирование класса для первой части
+            list1.Date = DateTime.Now; //записываем текущее время
+            list1.ProcCount = temp1.Count; //считываем количество процедур
             foreach (var item in temp4) {
-                list1.CompName = item.BUTXT;
+                list1.CompName += item.BUTXT+", "; //записываем имена компаний
             }
 
+            //заполняем вторую часть
+            //для второй части необходимо выводить все данные из таблиц
             var list2 = new SecondPart();
             list2.ZTINMM_TK_H1 = new ZTINMM_TK_H();
             foreach (var item in temp1) {
@@ -169,7 +184,7 @@ namespace Practs.Controllers
                 list2.ZTINMM_TK_OFR1.WIN_FLG = item.WIN_FLG;
             
             }
-            var report = new List<REPORT_REQUEST_DTO>
+            var report = new List<REPORT_REQUEST_DTO> //формируем список класса для отчета, состоящий из двух частей, что мы собирали ранее
             {
                 new REPORT_REQUEST_DTO()
                 {
@@ -182,7 +197,7 @@ namespace Practs.Controllers
             if (report == null) {
                 return NotFound();
             }
-            return Ok(report.Take(Restriction));
+            return Ok(report.Take(Restriction)); //вывод отчета с ограничением выборки 
         }
 
     }

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Practs.Modules.Main
 {
-    public class ZTINMM_TK_H
+    public class ZTINMM_TK_H //Создание таблицы ZTINMM_TK_H
     {
 
         [Key]

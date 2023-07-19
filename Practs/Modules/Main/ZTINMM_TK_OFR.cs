@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Practs.Modules.Main
 {
    
-    public class ZTINMM_TK_OFR
+    public class ZTINMM_TK_OFR //Создание таблицы ZTINMM_TK_OFR
     {
         [Key]
         public int Id { get; set; }

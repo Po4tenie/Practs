@@ -40,7 +40,7 @@ namespace Practs.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("T001");
+                    b.ToTable("T001", (string)null);
                 });
 
             modelBuilder.Entity("Practs.Modules.Main.ZINMM_SOF_LOT_H", b =>
@@ -83,7 +83,7 @@ namespace Practs.Migrations
 
                     b.HasKey("LOT_ID");
 
-                    b.ToTable("ZINMM_SOF_LOT_H");
+                    b.ToTable("ZINMM_SOF_LOT_H", (string)null);
                 });
 
             modelBuilder.Entity("Practs.Modules.Main.ZTINMM_TK_H", b =>
@@ -126,7 +126,7 @@ namespace Practs.Migrations
 
                     b.HasKey("KONKURS_ID");
 
-                    b.ToTable("ZTINMM_TK_H");
+                    b.ToTable("ZTINMM_TK_H", (string)null);
                 });
 
             modelBuilder.Entity("Practs.Modules.Main.ZTINMM_TK_OFR", b =>
@@ -181,7 +181,7 @@ namespace Practs.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ZTINMM_TK_OFR");
+                    b.ToTable("ZTINMM_TK_OFR", (string)null);
                 });
 #pragma warning restore 612, 618
         }

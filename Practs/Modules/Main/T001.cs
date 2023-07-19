@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Practs.Modules.Main
 {
     
-    public class T001
+    public class T001 //Создание таблицы T001
     {
         [Key]
         public int Id { get; set; }

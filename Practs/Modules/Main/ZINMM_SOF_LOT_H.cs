@@ -2,7 +2,7 @@
 
 namespace Practs.Modules.Main
 {
-    public class ZINMM_SOF_LOT_H
+    public class ZINMM_SOF_LOT_H //Создание таблицы ZINMM_SOF_LOT_H
     {
         [Key]
         public int LOT_ID { get; set; }
