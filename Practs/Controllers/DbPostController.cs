@@ -29,33 +29,38 @@ namespace Practs.Controllers
 
 
 
-        //Запись лота
+        // Запись лота
+        // api/DbPost/ZINMM_SOF_LOT_H/PostLot
         [HttpPost("ZINMM_SOF_LOT_H/PostLot")]
-        public IActionResult PostLot([FromBody] ZINMM_SOF_LOT_H_DTO_REQUEST ZINMM_SOF_LOT_H_DTO_REQUEST)
+        public IActionResult PostLot([FromBody] ZINMM_SOF_LOT_H_DTO_REQUEST LotRequest)//получение элементов из  тела 
         {
-
+            //создание класса таблицы и присваивание им элементов, которые получили из тела
             var results = new ZINMM_SOF_LOT_H
             {
-                KONKURS_ID = ZINMM_SOF_LOT_H_DTO_REQUEST.KONKURS_ID,
-                LOT_NR = ZINMM_SOF_LOT_H_DTO_REQUEST.LOT_NR,
-                LOT_NAME = ZINMM_SOF_LOT_H_DTO_REQUEST.LOT_NAME,
-                EKORG = ZINMM_SOF_LOT_H_DTO_REQUEST.EKORG,
-                FINAN_LIMIT_WVAT = ZINMM_SOF_LOT_H_DTO_REQUEST.FINAN_LIMIT_WVAT,
-                FINAN_LIMIT_WOVAT = ZINMM_SOF_LOT_H_DTO_REQUEST.FINAN_LIMIT_WOVAT,
-                VAT_RATE = ZINMM_SOF_LOT_H_DTO_REQUEST.VAT_RATE,
-                CALC_NDS = ZINMM_SOF_LOT_H_DTO_REQUEST.CALC_NDS
+                KONKURS_ID = LotRequest.KONKURS_ID,
+                LOT_NR = LotRequest.LOT_NR,
+                LOT_NAME = LotRequest.LOT_NAME,
+                EKORG = LotRequest.EKORG,
+                FINAN_LIMIT_WVAT = LotRequest.FINAN_LIMIT_WVAT,
+                FINAN_LIMIT_WOVAT = LotRequest.FINAN_LIMIT_WOVAT,
+                VAT_RATE = LotRequest.VAT_RATE,
+                CALC_NDS = LotRequest.CALC_NDS
 
             };
+            //добавление полученных элементов в таблицу 
             _context.ZINMM_SOF_LOT_H.Add(results);
+
             try
             {
+                //сохранение изменений
                 _context.SaveChanges();
             }
             catch (DbException ex)
             {
+                //если произойдет ошибка записи, вывод ошибки
                 return Problem(ex.Message);
             }
-
+            //создание класса для вывода тех элементов, что мы записали в таблицу
             var resDto = new ZINMM_SOF_LOT_H_DTO
             {
                 KONKURS_ID = results.KONKURS_ID,
@@ -70,25 +75,31 @@ namespace Practs.Controllers
 
 
             };
-
+            //вывод элементов, что мы внесли в таблицу
+            //метод CreatedAtAction используется для единичного ответа. Требует 2 перегрузки: Название действия
+            //В нашем случае название метода PostLot и объекта, который мы создали 
             return CreatedAtAction(nameof(PostLot), resDto);
 
         }
-        //Запись процедуры
+
+        //запись элементов для следующих таблиц происходит по такому же алгоритму
+
+        // Запись процедуры
+        // api/DbPost/ZTINMM_TK_H/PostProcedure
         [HttpPost("ZTINMM_TK_H/PostProcedure")]
-        public IActionResult PostProcedure([FromBody] ZTINMM_TK_H_DTO_REQUEST ZTINMM_TK_H_DTO_REQUEST)
+        public IActionResult PostProcedure([FromBody] ZTINMM_TK_H_DTO_REQUEST ProcRequest)
         {
 
             var results = new ZTINMM_TK_H
             {
-                KONKURS_NR = ZTINMM_TK_H_DTO_REQUEST.KONKURS_NR,
-                KONKURS_NAME = ZTINMM_TK_H_DTO_REQUEST.KONKURS_NAME,
-                BURKS = ZTINMM_TK_H_DTO_REQUEST.BURKS,
-                //ORG_KEY = ZTINMM_TK_H_DTO_REQUEST.ORG_KEY,
-                STAT = ZTINMM_TK_H_DTO_REQUEST.STAT,
-                CRT_DATE = ZTINMM_TK_H_DTO_REQUEST.CRT_DATE,
-                CRT_TIME = ZTINMM_TK_H_DTO_REQUEST.CRT_TIME,
-                CRT_USER = ZTINMM_TK_H_DTO_REQUEST.CRT_USER
+                KONKURS_NR = ProcRequest.KONKURS_NR,
+                KONKURS_NAME = ProcRequest.KONKURS_NAME,
+                BURKS = ProcRequest.BURKS,
+                ORG_KEY = ProcRequest.ORG_KEY,
+                STAT = ProcRequest.STAT,
+                CRT_DATE = ProcRequest.CRT_DATE,
+                CRT_TIME = ProcRequest.CRT_TIME,
+                CRT_USER = ProcRequest.CRT_USER
 
             };
             _context.ZTINMM_TK_H.Add(results);
@@ -119,25 +130,26 @@ namespace Practs.Controllers
             return CreatedAtAction(nameof(PostProcedure), resDto);
 
         }
-        //Запись офферт
+        // Запись офферт
+        // api/DbPost/ZTINMM_TK_H/PostProcedure
         [HttpPost("ZTINMM_TK_OFR/PostOffr")]
-        public IActionResult PostOffr([FromBody] ZTINMM_TK_OFR_DTO_REQUEST ZTINMM_TK_OFR_DTO_REQUEST)
+        public IActionResult PostOffr([FromBody] ZTINMM_TK_OFR_DTO_REQUEST OffrRequest)
         {
 
             var results = new ZTINMM_TK_OFR
             {
-                KONKURS_ID = ZTINMM_TK_OFR_DTO_REQUEST.KONKURS_ID,
-                LOT_ID = ZTINMM_TK_OFR_DTO_REQUEST.LOT_ID,
-                TABIX = ZTINMM_TK_OFR_DTO_REQUEST.TABIX,
-                LIFNR = ZTINMM_TK_OFR_DTO_REQUEST.LIFNR,
-                LIFNR_NAME = ZTINMM_TK_OFR_DTO_REQUEST.LIFNR_NAME,
-                OFR_DATE = ZTINMM_TK_OFR_DTO_REQUEST.OFR_DATE,
-                OFR_TIME = ZTINMM_TK_OFR_DTO_REQUEST.OFR_TIME,
-                PRICE_NDS = ZTINMM_TK_OFR_DTO_REQUEST.PRICE_NDS,
-                PRICE_S_NDS = ZTINMM_TK_OFR_DTO_REQUEST.PRICE_S_NDS,
-                DELIVER_DATE = ZTINMM_TK_OFR_DTO_REQUEST.DELIVER_DATE,
-                DELIVER_TIME = ZTINMM_TK_OFR_DTO_REQUEST.DELIVER_TIME,
-                WIN_FLG = ZTINMM_TK_OFR_DTO_REQUEST.WIN_FLG
+                KONKURS_ID = OffrRequest.KONKURS_ID,
+                LOT_ID = OffrRequest.LOT_ID,
+                TABIX = OffrRequest.TABIX,
+                LIFNR = OffrRequest.LIFNR,
+                LIFNR_NAME = OffrRequest.LIFNR_NAME,
+                OFR_DATE = OffrRequest.OFR_DATE,
+                OFR_TIME = OffrRequest.OFR_TIME,
+                PRICE_NDS = OffrRequest.PRICE_NDS,
+                PRICE_S_NDS = OffrRequest.PRICE_S_NDS,
+                DELIVER_DATE = OffrRequest.DELIVER_DATE,
+                DELIVER_TIME = OffrRequest.DELIVER_TIME,
+                WIN_FLG = OffrRequest.WIN_FLG
             };
             _context.ZTINMM_TK_OFR.Add(results);
             try
@@ -169,15 +181,17 @@ namespace Practs.Controllers
             return CreatedAtAction(nameof(PostLot), resDto);
 
         }
-
+        // запись единиц
+        // api/DbPost/T001/PostBaseEds
         [HttpPost("T001/PostBaseEds")]
-        public IActionResult PostBaseEds([FromBody] T001_DTO_REQUEST ZTINMM_TK_OFR_DTO_REQUEST)
+        
+        public IActionResult PostBaseEds([FromBody] T001_DTO_REQUEST EdsRequest)
         {
 
             var results = new T001
             {
-                BURKS = ZTINMM_TK_OFR_DTO_REQUEST.BURKS,
-                BUTXT = ZTINMM_TK_OFR_DTO_REQUEST.BUTXT
+                BURKS = EdsRequest.BURKS,
+                BUTXT = EdsRequest.BUTXT
             };
             _context.T001.Add(results);
             try

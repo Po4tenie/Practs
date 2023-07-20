@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Practs.Modules.DTO
 {
+    //создание класса DTO, чтобы передавать инофрмацию из таблиц в него и уже показывать пользователю
     [Keyless]
     public class ZTINMM_TK_OFR_DTO
     {

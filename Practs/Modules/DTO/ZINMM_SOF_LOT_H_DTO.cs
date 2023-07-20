@@ -2,6 +2,7 @@
 
 namespace Practs.Modules.DTO
 {
+    //создание класса DTO, чтобы передавать инофрмацию из таблиц в него и уже показывать пользователю
     public class ZINMM_SOF_LOT_H_DTO
     {
         [Key]

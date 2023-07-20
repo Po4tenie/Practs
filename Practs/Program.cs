@@ -14,8 +14,7 @@ builder.Services.AddSwaggerGen(); // добавление Swagger
 
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
+//использование Swagger интерфейса
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

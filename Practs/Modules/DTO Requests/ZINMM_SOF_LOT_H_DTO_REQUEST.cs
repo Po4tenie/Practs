@@ -2,6 +2,7 @@
 
 namespace Practs.Modules.DTO_Requests
 {
+    //Создание request класса для post запросов
     public class ZINMM_SOF_LOT_H_DTO_REQUEST
     {
         [MaxLength(12)]

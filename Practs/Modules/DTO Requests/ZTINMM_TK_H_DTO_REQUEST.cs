@@ -2,6 +2,7 @@
 
 namespace Practs.Modules.DTO
 {
+    //Создание request класса для post запросов
     public class ZTINMM_TK_H_DTO_REQUEST
     {
         

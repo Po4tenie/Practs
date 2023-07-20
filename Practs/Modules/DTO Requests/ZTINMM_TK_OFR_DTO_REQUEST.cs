@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Practs.Modules.DTO_Requests
 {
+    //Создание request класса для post запросов
     [Keyless]
     public class ZTINMM_TK_OFR_DTO_REQUEST
     {
