@@ -2,7 +2,7 @@
 
 namespace Practs.Modules.Report
 {
-    public class REPORT_REQUEST_DTO
+    public class ReportRequest
     {
         [Key]
         public int ReportId { get; set; }
