@@ -53,8 +53,6 @@ namespace Practs.Controllers
 
             }
             return Ok(results.Take(Restriction)); //вывод списка с ограничением выборки
-
-
         }
         // Данные процедуры по KONKURS_ID
         // api/DbGet/ZTINMM_TK_H/GetProcedureById
@@ -145,7 +143,7 @@ namespace Practs.Controllers
             //заполняем вторую часть
             //для второй части необходимо выводить все данные из таблиц
             var list2 = new SecondPart();
-            list2.ZTINMM_TK_H1 = new ZTINMM_TK_H();
+            list2.ZTINMM_TK_H1 = new ZTINMM_TK_H_DTO();
             foreach (var item in temp1) {
                 list2.ZTINMM_TK_H1.KONKURS_ID = item.KONKURS_ID;
                 list2.ZTINMM_TK_H1.KONKURS_NR = item.KONKURS_NR;
@@ -158,7 +156,7 @@ namespace Practs.Controllers
                 list2.ZTINMM_TK_H1.CRT_USER = item.CRT_USER;
             
             }
-            list2.ZINMM_SOF_LOT_H1 = new ZINMM_SOF_LOT_H();
+            list2.ZINMM_SOF_LOT_H1 = new ZINMM_SOF_LOT_H_DTO();
             foreach (var item in temp2) {
                 list2.ZINMM_SOF_LOT_H1.LOT_ID = item.LOT_ID;
                 list2.ZINMM_SOF_LOT_H1.LOT_NR = item.LOT_NR;
@@ -170,7 +168,7 @@ namespace Practs.Controllers
                 list2.ZINMM_SOF_LOT_H1.CALC_NDS = item.CALC_NDS;
             
             }
-            list2.ZTINMM_TK_OFR1 = new ZTINMM_TK_OFR();
+            list2.ZTINMM_TK_OFR1 = new ZTINMM_TK_OFR_DTO();
             foreach (var item in temp3) { 
                 list2.ZTINMM_TK_OFR1.TABIX = item.TABIX;
                 list2.ZTINMM_TK_OFR1.LIFNR = item.LIFNR;
@@ -184,9 +182,9 @@ namespace Practs.Controllers
                 list2.ZTINMM_TK_OFR1.WIN_FLG = item.WIN_FLG;
             
             }
-            var report = new List<REPORT_REQUEST_DTO> //формируем список класса для отчета, состоящий из двух частей, что мы собирали ранее
+            var report = new List<ReportRequest> //формируем список класса для отчета, состоящий из двух частей, что мы собирали ранее
             {
-                new REPORT_REQUEST_DTO()
+                new ReportRequest()
                 {
                     FirstPart = list1,
                     SecondPart = list2

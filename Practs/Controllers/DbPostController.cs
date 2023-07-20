@@ -34,7 +34,7 @@ namespace Practs.Controllers
         [HttpPost("ZINMM_SOF_LOT_H/PostLot")]
         public IActionResult PostLot([FromBody] ZINMM_SOF_LOT_H_DTO_REQUEST LotRequest)//получение элементов из  тела 
         {
-            //создание класса таблицы и присваивание им элементов, которые получили из тела
+            //создание объекта класса таблицы и присваивание им элементов, которые получили из тела
             var results = new ZINMM_SOF_LOT_H
             {
                 KONKURS_ID = LotRequest.KONKURS_ID,
